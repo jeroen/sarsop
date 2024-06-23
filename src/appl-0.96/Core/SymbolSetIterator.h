@@ -6,42 +6,44 @@
 #include "Const.h"
 using namespace std;
 //using namespace momdp;
-namespace momdp 
+namespace momdp
 {
 template <typename T> class SymbolSet;
 
 template <typename T>
-class SymbolSetIterator: public iterator<input_iterator_tag, T>
+class SymbolSetIterator
 {
+  using iterator_category = std::forward_iterator_tag;
+  using value_type = T;
 	SymbolSet<T> *parentSet;
 	int symbolID;
 
 
 public:
-	SymbolSetIterator(SymbolSet<T> *_parentSet, int _symbolID) 
+	SymbolSetIterator(SymbolSet<T> *_parentSet, int _symbolID)
 	{
 		parentSet = _parentSet;
 		symbolID = _symbolID;
 	}
 
-	SymbolSetIterator(const SymbolSetIterator& mit) 
+	SymbolSetIterator(const SymbolSetIterator& mit)
 	{
 		this->parentSet = mit.parentSet;
 		this->symbolID = mit.symbolID;
 	}
 
-	SymbolSetIterator<T>& operator++() 
+	SymbolSetIterator<T>& operator++()
 	{
 		++symbolID;
 		return *this;
 	}
 
-	void operator++(int) 
+	void operator++(int)
 	{
 		symbolID++;
 	}
 
-	bool operator==(const SymbolSetIterator& rhs) 
+	bool operator==(const SymbolSetIterator& rhs)
 	{
 		if(parentSet == rhs.parentSet && symbolID == rhs.symbolID)
 		{
@@ -50,7 +52,7 @@ public:
 		return false;
 	}
 
-	bool operator!=(const SymbolSetIterator& rhs) 
+	bool operator!=(const SymbolSetIterator& rhs)
 	{
 		if(parentSet != rhs.parentSet || symbolID != rhs.symbolID)
 		{
@@ -59,16 +61,16 @@ public:
 		return false;
 	}
 
-	int operator*() 
+	int operator*()
 	{
 		return symbolID;
 	}
 
-	T& value() 
+	T& value()
 	{
 		return parentSet->getSymbol(symbolID);
 	}
-	int index() 
+	int index()
 	{
 		return symbolID;
 	}
